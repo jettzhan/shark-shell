@@ -12,7 +12,7 @@ admin@1234
 
 ![](assert/789dab51.png)
 
-2、 必须要开发docker下面的端口
+2、 必须要开放docker下面的端口
 
 3、 配置域名解析
 
