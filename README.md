@@ -15,7 +15,7 @@
 | docker              | mysql、jira、redis、taos等等容器的docker-compose  |
 | es                  | filebeat、logstash 安装                      |
 | fdisk               | 分区                                        |
-| firewall            | 防护墙                                       |
+| firewall            | 防活墙                                       |
 | frps                | 实时检测frp内网穿透是否正常                           |
 | githooks            | pre-commit、pre-push git代码提交和推送检查          |
 | grafana             | grafana 监控taos数据库                         |
