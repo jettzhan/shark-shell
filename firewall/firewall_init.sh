@@ -1,69 +1,59 @@
 #!/bin/sh
-#chkconfig: 2345 99 10
-#description: firewall_rules.sh is a script to set iptables
 
-self_ip_list=`ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
-self_ip_array=(${self_ip_list//$'\n'/ })
-self_ip=${self_ip_array[0]}
+# Get the IP address of the host (non-loopback, non-IPv6)
+self_ip=$(ifconfig -a | grep -w inet | grep -v '127.0.0.1\|inet6' | awk '{print $2}' | head -n 1 | tr -d "addr:")
 if [ -z "${self_ip}" ]; then
-	echo "failed to get own ip address"
-	exit 1
+    echo "Failed to get own IP address"
+    exit 1
 fi
 
-echo "self ip is ${self_ip}"
+echo "Self IP is ${self_ip}"
 
+# Clear existing iptables rules in the filter table
 iptables -t filter -F
-#iptables -t nat -F
-#iptables -t nat -X
 
-#self_ip=xx.xx.xx.xx
-allowed_tcp_port=22,80,443,1883,3306,5432,8700,8743,8080,8848,18080,8999
-allowed_tcp_port2=6379
-allowed_tcp_port3=
-restrict_tcp_port=
-admin_ip=
-###########################INPUT键###################################
+# Define ports and variables
+allowed_tcp_ports="22,80,443,1883,3306,5432"
+allowed_tcp_ports2="6379"
+restrict_tcp_ports=""
+admin_ip=""
 
+########################### INPUT Chain ###################################
+
+# Default policy: Drop all incoming connections
 iptables -P INPUT DROP
+
+# Allow established and related connections
 iptables -A INPUT -m state --state ESTABLISHED,RELATED -j ACCEPT
 
-if [ -n "${allowed_tcp_port}" ]; then
-	iptables -A INPUT -p tcp -m multiport --dports ${allowed_tcp_port} -j ACCEPT
+# Allow TCP connections on specified ports
+if [ -n "${allowed_tcp_ports}" ]; then
+    iptables -A INPUT -p tcp -m multiport --dports ${allowed_tcp_ports} -j ACCEPT
 fi
 
-if [ -n "${allowed_tcp_port2}" ]; then
-	iptables -A INPUT -p tcp -m multiport --dports ${allowed_tcp_port2} -j ACCEPT
+if [ -n "${allowed_tcp_ports2}" ]; then
+    iptables -A INPUT -p tcp -m multiport --dports ${allowed_tcp_ports2} -j ACCEPT
 fi
 
-if [ -n "${allowed_tcp_port3}" ]; then
-        iptables -A INPUT -p tcp -m multiport --dports ${allowed_tcp_port3} -j ACCEPT
+# Allow restricted TCP connections from self IP (if any)
+if [ -n "${restrict_tcp_ports}" ]; then
+    iptables -A INPUT -p tcp -m multiport --dports ${restrict_tcp_ports} -s ${self_ip} -j ACCEPT
 fi
 
-if [ -n "${restrict_tcp_port}" ]; then
-	iptables -A INPUT -p tcp -m multiport --dports ${restrict_tcp_port} -s ${self_ip} -j ACCEPT
-fi
-
-if [ -n "${allowed_udp_port}" ]; then
-	iptables -A INPUT -p udp -m multiport --dports ${allowed_udp_port} -j ACCEPT
-fi
-
-if [ -n "${restrict_udp_port}" ]; then
-	iptables -A INPUT -p udp -m multiport --dports ${restrict_udp_port} -s ${self_ip} -j ACCEPT
-fi
-
-#禁止icmp通信-ping 不通
-#iptables -A INPUT -p icmp -m limit --limit 3/s -j LOG --log-level INFO --log-prefix "ICMP packet IN: "
-#iptables -A INPUT -p icmp -j DROP
-
-#iptables -N syn-flood
-#iptables -A INPUT -p tcp --syn -j syn-flood
-#iptables -I syn-flood -p tcp -m limit --limit 30/s --limit-burst 60 -j RETURN
-#iptables -A syn-flood -j REJECT
-
+# Allow loopback and self IP communication
 iptables -A INPUT -s 127.0.0.1 -d 127.0.0.1 -j ACCEPT
 iptables -A INPUT -s ${self_ip} -d ${self_ip} -j ACCEPT
 
-
+# Allow admin IP (if specified)
 if [ -n "${admin_ip}" ]; then
-	iptables -I INPUT -s ${admin_ip} -j ACCEPT
+    iptables -I INPUT -s ${admin_ip} -j ACCEPT
 fi
+
+# Uncomment below to block ICMP (disable ping)
+# iptables -A INPUT -p icmp -j DROP
+
+# Uncomment below to enable SYN flood protection
+# iptables -N syn-flood
+# iptables -A INPUT -p tcp --syn -j syn-flood
+# iptables -I syn-flood -p tcp -m limit --limit 30/s --limit-burst 60 -j RETURN
+# iptables -A syn-flood -j REJECT
