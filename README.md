@@ -9,7 +9,7 @@
 | 目录                  | 功能                                        |
 |---------------------|-------------------------------------------|
 | allDocker           | 常见docker容器的配置                             |
-| backup              | 定时备份shell                                 |
+| backup              | 定时备份shell、mysql、postgres                  |
 | clamav              | linux 安全软件clamav 安装                       |
 | dataxweb            | dataxweb shell一键安装                        |
 | docker              | mysql、jira、redis、taos等等容器的docker-compose  |
