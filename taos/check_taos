@@ -1,0 +1,13 @@
+#!/bin/bash
+# author zhanzhihu
+
+is_active=$(docker ps |grep tdengine |wc -l )
+
+if [ $is_active -eq 0 ]; then
+  echo 'start taos...'    	
+  systemctl start docker
+  systemctl stop taosd
+  systemctl stop taosadapter  
+  docker start tdengine 
+  
+fi
