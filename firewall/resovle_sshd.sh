@@ -1,4 +1,5 @@
 #!/bin/bash
+# author: noodzhan@163.com
 
 # CVE-2002-20001
 # https://blog.csdn.net/zhongxj183/article/details/124928794

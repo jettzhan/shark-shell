@@ -1,6 +1,5 @@
-#!/bin/bash 
-
-# author: zhanzhihu
+#!/bin/bash
+# author: noodzhan@163.com
 set -e 
 
 des="/opt/apexapp/web"

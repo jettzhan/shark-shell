@@ -1,6 +1,10 @@
 #!/bin/bash
+# author: noodzhan@163.com
 
-resp=$(curl -s 'http://1.15.231.74:7500/api/proxy/tcp' \
+FRP_API_URL='http://1.15.231.74:7500/api/proxy/tcp'
+ALERT_EMAIL='noodzhan@163.com'
+
+resp=$(curl -s $FRP_API_URL \
   -H 'Accept: */*' \
   -H 'Accept-Language: zh-CN,zh;q=0.9' \
   -H 'Authorization: Basic YWRtaW46bm9vZHpoYW5AMTIzNA==' \
@@ -16,5 +20,5 @@ jeecgboot_status=$(echo $resp | jq -r '.proxies[] | select(.name == "jeecgboot")
 mysql_status=$(echo $resp | jq -r '.proxies[] | select(.name == "mysql") | .status')
 if [[ $ssh_status == "offline" || $jeecgboot_status == "offline" || $mysql_status == "offline" ]]; then
   ## sudo apt install mailutils
-  echo $resp | jq '.' | iconv -t utf-8 | mail -s "frp-alter" noodzhan@163.com
+  echo $resp | jq '.' | iconv -t utf-8 | mail -s "frp-alter" $ALERT_EMAIL
 fi

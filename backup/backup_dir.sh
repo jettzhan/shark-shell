@@ -1,4 +1,5 @@
 #!/bin/bash
+# author: noodzhan@163.com
 
 # 定义源目录和目标目录
 source_dir="/path/to/source"

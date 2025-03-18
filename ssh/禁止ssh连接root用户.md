@@ -3,11 +3,13 @@
 1. 使用管理员权限登录到 Linux 系统。
 
 2. 打开 SSH 配置文件 `/etc/ssh/sshd_config`：
-   ```
+
+   ```bash
    sudo vi /etc/ssh/sshd_config
    ```
 
 3. 在文件中找到 `PermitRootLogin` 选项并修改其值。如果该选项不存在，则添加以下行：
+
    ```
    PermitRootLogin no
    ```
@@ -17,7 +19,8 @@
 4. 保存并关闭文件。
 
 5. 重新加载 SSH 服务以使配置更改生效：
-   ```
+
+   ```bash
    sudo systemctl restart sshd
    ```
 

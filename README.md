@@ -1,29 +1,124 @@
-# shark shell
+# Shark Shell
 
-## 描述
+## 项目简介
 
-整理在工作中，或者业余时间写的shell，包括安装软件，配置，启动等等，然后不断迭代开发。
+Shark Shell 是一个用于管理和自动化常见系统任务的脚本集合。它汇集了在工作中和业余时间开发的各种 Shell 脚本，旨在简化软件安装、配置、启动等任务。该项目涵盖了常见的系统服务与应用的部署，并通过不断的迭代开发，确保脚本的有效性和易用性。
 
-## 功能
+## 功能概述
 
-| 目录                  | 功能                                        |
+Shark Shell 包含多个功能模块，适用于不同的系统管理需求。以下是各模块的简要介绍：
+
+| 目录                  | 功能简介                                       |
 |---------------------|-------------------------------------------|
-| allDocker           | 常见docker容器的配置                             |
-| backup              | 定时备份shell、mysql、postgres                  |
-| clamav              | linux 安全软件clamav 安装                       |
-| dataxweb            | dataxweb shell一键安装                        |
-| docker              | mysql、jira、redis、taos等等容器的docker-compose  |
-| es                  | filebeat、logstash 安装                      |
-| fdisk               | 分区                                        |
-| firewall            | 防活墙                                       |
-| frps                | 实时检测frp内网穿透是否正常                           |
-| githooks            | pre-commit、pre-push git代码提交和推送检查          |
-| grafana             | grafana 监控taos数据库                         |
-| minio               | minio 一键安装                                |
-| mysql router        | mysql router linux service后台服务            |
-| prometheus          | 安装prometheus 监控linux、kafka、mysql、postgres |
-| subversion          | subversion 安装                             |
-| supervisor          | supervisor 安装                             |
-| taos                | taos 安装、与脚本执行                             |
-| thingsboard-gateway | thingsbaord-gateway 安装                    |
-| watchdog            | nacos和kafka 监控                            |
+| **backup**           | 提供定时备份功能，支持对 Shell 脚本、MySQL 和 PostgreSQL 数据库进行定期备份。      |
+| **clamav**           | 安装并配置 ClamAV，Linux 环境中的开源安全软件，帮助防止病毒和恶意软件。         |
+| **docker**           | 提供多个常见服务（如 MySQL、Jira、Redis、Taos 等）的 Docker Compose 配置文件。 |
+| **es**               | 自动安装和配置 Elastic Stack（包括 Filebeat 和 Logstash），用于日志收集与处理。 |
+| **firewall**         | 提供防火墙配置脚本，详细说明如何配置和管理防火墙。                               |
+| **check**             | 提供系统检查功能，包括 Yarn 包管理器检查等。                           |
+| **chk_frps**          | 实时监控 frp 内网穿透服务的状态，确保网络穿透功能正常。                        |
+| **chk_https**         | 检查 SSL 证书有效期，确保网站安全性。                                 |
+| **chk_logs**          | 提供日志自动清理功能，防止日志文件过大影响系统性能。                         |
+| **githooks**         | 配置 Git 钩子（pre-commit 和 pre-push），在代码提交和推送时进行自动化检查。     |
+| **grafana**          | 自动安装并配置 Grafana，用于监控 Taos 数据库。                            |
+| **minio**            | 提供 MinIO 一键安装脚本，快速搭建分布式对象存储服务。                           |
+| **prometheus**       | 安装并配置 Prometheus，用于监控 Linux 系统、Kafka、MySQL 和 PostgreSQL 等服务。 |
+| **subversion**       | 提供 Subversion (SVN) 安装脚本，帮助快速搭建版本控制系统。                   |
+| **taos**             | 自动化安装和配置 Taos 数据库，支持与脚本的配合执行。                       |
+| **guard_kafka**         | 用于监控 Kafka 服务的运行状态，确保系统服务的健康。                   |
+| **guard_nacos**         | 用于监控 Nacos 服务的运行状态，确保系统服务的健康。                   |
+
+
+## 安装与使用
+
+### 系统要求
+
+- Linux 系统（支持常见的 Linux 发行版，如 Ubuntu、CentOS 等）
+- 已安装 Docker 和 Docker Compose（对于涉及 Docker 容器的功能）
+- 管理员权限（需要使用 `sudo` 执行脚本）
+
+### 获取项目
+
+你可以通过 Git 克隆项目代码：
+
+```bash
+git clone https://github.com/noodzhan/shark-shell.git
+```
+
+### 运行脚本
+
+每个模块通常包含一个独立的脚本文件，你可以进入相应目录并执行脚本。例如：
+
+1. **kafka监控：**
+
+进入 `guard_kafka` 目录：
+
+```bash
+cd guard_kafka
+./guard_kafka.sh
+```
+
+2. **备份脚本：**
+
+进入 `backup` 目录：
+
+```bash
+cd backup
+./backup_dir.sh
+```
+
+3. **Prometheus 监控配置：**
+
+进入 `prometheus` 目录：
+
+```bash
+cd prometheus
+./install_prometheus.sh
+```
+
+每个模块都提供了详细的安装说明和使用指南，你可以根据需要选择相应的脚本进行操作。
+
+### 配置与定制
+
+部分脚本支持用户自定义配置。在使用时，你可以根据自己的环境调整配置文件。例如，在 `docker` 模块中，你可以修改 Docker Compose 文件中的服务配置。在 `firewall` 模块中，你可以定制开放的端口和规则。
+
+### 常见问题
+
+1. **如何修改脚本中的配置？**
+
+   你可以直接编辑相应模块中的配置文件（如 `.env` 文件、配置脚本等）。大多数脚本在开头部分都提供了易于修改的配置选项。
+
+2. **执行脚本时遇到权限问题怎么办？**
+
+   确保你以管理员身份运行脚本。在终端中使用 `sudo` 来获得足够的权限。例如：
+
+   ```bash
+   sudo ./install_script.sh
+   ```
+
+3. **脚本执行失败怎么办？**
+
+    - 检查依赖项是否满足，如 Docker 和 Docker Compose。
+    - 查看脚本的输出日志，查找错误信息并根据提示解决问题。
+
+4. **是否支持其他操作系统？**
+
+   目前，Shark Shell 主要针对 Linux 系统，其他操作系统可能需要做一些适配或修改。
+
+## 贡献指南
+
+欢迎大家为 Shark Shell 项目贡献代码和脚本！以下是如何贡献的基本步骤：
+
+1. Fork 项目并创建自己的分支。
+2. 提交改动并确保脚本通过基本的测试。
+3. 创建 Pull Request（PR），并简要描述你所做的更改。
+
+## 授权协议
+
+Shark Shell 遵循 MIT 开源协议，你可以自由使用和修改该项目的代码。
+
+---
+
+### 结语
+
+Shark Shell 是一个方便的工具集，旨在提高工作效率并简化常见的系统管理任务。随着社区的贡献和项目的持续迭代，它将成为你在 Linux 环境中自动化任务的得力助手。如果有任何问题或建议，欢迎提出！

@@ -1,4 +1,5 @@
 #!/bin/bash
+# author: noodzhan@163.com
 
 # 全局配置变量
 threshold_days=5                                # 删除天数阈值

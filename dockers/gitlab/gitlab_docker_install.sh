@@ -1,4 +1,5 @@
 #!/bin/bash
+# author: noodzhan@163.com
 
 mkdir config
 mdkir data
