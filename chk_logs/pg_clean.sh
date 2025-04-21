@@ -57,3 +57,5 @@ fi
 
 # 记录脚本执行结束
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Script finished." >>$LOG_FILE
+
+##0 0 * * * /usr/local/bin/pg_clean.sh
