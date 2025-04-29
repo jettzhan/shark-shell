@@ -1,9 +1,24 @@
 #!/bin/bash
-# author: noodzhan@163.com
 
-# 定义源目录和目标目录
-source_dir="/path/to/source"
-target_dir="/path/to/target"
+# author: noodzhan@163.com
+# Crontab example to run this script daily at 1:00 AM
+# 0 1 * * * /usr/local/bin/backup_dir.sh /source/dir /target/dir
+
+# 显示使用说明
+usage() {
+  echo "Usage: $0 <source_dir> <target_dir>"
+  echo "Example: $0 /opt/web/dist /mnt/backup/web"
+  exit 1
+}
+
+# 检查参数
+if [ $# -ne 2 ]; then
+  usage
+fi
+
+# 获取源目录和目标目录
+source_dir=$1
+target_dir=$2
 
 # 获取当前日期
 current_date=$(date +"%Y%m%d")
