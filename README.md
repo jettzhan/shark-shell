@@ -11,7 +11,6 @@ Shark Shell 包含多个功能模块，适用于不同的系统管理需求。�
 | 目录                  | 功能简介                                       |
 |---------------------|-------------------------------------------|
 | **backup**           | 提供定时备份功能，支持对 Shell 脚本、MySQL 和 PostgreSQL 数据库进行定期备份。      |
-| **clamav**           | 安装并配置 ClamAV，Linux 环境中的开源安全软件，帮助防止病毒和恶意软件。         |
 | **docker**           | 提供多个常见服务（如 MySQL、Jira、Redis、Taos 等）的 Docker Compose 配置文件。 |
 | **es**               | 自动安装和配置 Elastic Stack（包括 Filebeat 和 Logstash），用于日志收集与处理。 |
 | **firewall**         | 提供防火墙配置脚本，详细说明如何配置和管理防火墙。                               |

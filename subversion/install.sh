@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#https://blog.csdn.net/zengsange/article/details/80618301
+#https://gitee.com/cym1102/svnWebUI
 
 apt-get update
 
