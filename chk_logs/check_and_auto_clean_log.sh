@@ -11,6 +11,13 @@ dirs=("/var/log/nginx/access.log" "/var/log/taos/taos.log")
 
 # 遍历每个目录
 for dir in "${dirs[@]}"; do
+
+  # 检查目录是否存在
+  if [ ! -d "$dir" ]; then
+    echo "Directory $dir does not exist, skipping..."
+    continue
+  fi
+
   # 使用 du 命令获取目录大小（单位为KB）
   dir_size_kb=$(du -s "$dir" | awk '{print $1}')
 
