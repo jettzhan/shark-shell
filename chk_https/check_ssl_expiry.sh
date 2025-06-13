@@ -18,7 +18,7 @@ while IFS= read -r DOMAIN; do
         continue
     fi
 
-    #openssl s_client -connect 363.apex-soft.cn:443 2>/dev/null | openssl x509 -noout -enddate
+    #openssl s_client -connect noodb.com:443 2>/dev/null | openssl x509 -noout -enddate
 
     # 获取证书过期时间
     expiry_date=$(echo | openssl s_client -connect $DOMAIN:443 2>/dev/null | openssl x509 -noout -enddate | cut -d= -f2)

@@ -1,5 +1,5 @@
 # Shark Shell
-
+![GitHub](https://img.shields.io/github/license/jettzhan/shark-shell?style=flat-square)
 ## 项目简介
 
 Shark Shell 是一个用于管理和自动化常见系统任务的脚本集合。它汇集了在工作中和业余时间开发的各种 Shell 脚本，旨在简化软件安装、配置、启动等任务。该项目涵盖了常见的系统服务与应用的部署，并通过不断的迭代开发，确保脚本的有效性和易用性。
@@ -21,7 +21,6 @@ Shark Shell 包含多个功能模块，适用于不同的系统管理需求。�
 | **githooks**         | 配置 Git 钩子（pre-commit 和 pre-push），在代码提交和推送时进行自动化检查。     |
 | **grafana**          | 自动安装并配置 Grafana，用于监控 Taos 数据库。                            |
 | **minio**            | 提供 MinIO 一键安装脚本，快速搭建分布式对象存储服务。                           |
-| **prometheus**       | 安装并配置 Prometheus，用于监控 Linux 系统、Kafka、MySQL 和 PostgreSQL 等服务。 |
 | **subversion**       | 提供 Subversion (SVN) 安装脚本，帮助快速搭建版本控制系统。                   |
 | **taos**             | 自动化安装和配置 Taos 数据库，支持与脚本的配合执行。                       |
 | **guard_kafka**         | 用于监控 Kafka 服务的运行状态，确保系统服务的健康。                   |
