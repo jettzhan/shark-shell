@@ -1,7 +1,7 @@
 #!/bin/bash
 # author: noodzhan@163.com
 
-BAKDIR="/home/noodzhan/backup_database/mysql"
+BAKDIR="/opt/mysqlbackup"
 DBUSER=root
 DBPWD=123456
 HOST="127.0.0.1"
