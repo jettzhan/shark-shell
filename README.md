@@ -18,17 +18,17 @@ Shark Shell 是一个用于管理和自动化常见系统任务的脚本集合�
 sudo git clone https://github.com/jettzhan/shark-shell.git /opt/shark-shell
 ```
 
-| 脚本                    | 下载                                                         | 功能描述                                                      | 执行                     | crontab                                             |
-|-----------------------|------------------------------------------------------------|-----------------------------------------------------------|------------------------|-----------------------------------------------------|
-| Java进程                | `wget https://noodb.com/sharkshell/guard/guard_java.sh`    | 根据端口，监控进程；可自定配置启动命令；可以定制修改。                               | bash guard_java.sh     | 0 2 * * * /opt/shark-shell/guard/guard_java.sh      |
-| Kafka进程               | `wget https://noodb.com/sharkshell/guard/guard_kafka.sh`   | 监控Kafka进程；异常先启动zookeeper,然后是kafka。                        | bash guard_kafka.sh    | */5 * * * * /opt/shark-shell/guard/guard_kafka.sh   |
-| Nacos进程               | `wget https://noodb.com/sharkshell/guard/guard_nacos.sh`   | 先判断端口，然后在通过登录来判断Nacos 是否存活。                               | bash guard_nacos.sh    | */5 * * * * /opt/shark-shell/guard/guard_nacos.sh   |
-| 备份目录                  | `wget https://noodb.com/sharkshell/backup/backup_dir.sh`   | 备份目录到指定目录,保留最近2次文件；可以备份数据库目录 /var/lib/mysql；或者应用/opt/apps | bash backup_dir.sh     | */5 * * * * /opt/shark-shell/backup/backup_dir.sh   |
-| dump备份MySQL所有数据库      | `wget https://noodb.com/sharkshell/backup/backup_mysql.sh` | 备份MySQL所有数据库到指定目录；也可只指定数据库                                | bash   backup_mysql.sh | */5 * * * * /opt/shark-shell/backup/backup_dir.sh   |
-| 导入备份的MySQL数据库         | `wget https://noodb.com/sharkshell/backup/import_mysql.sh` | 导入备份的MySQL数据库                                             | bash   import_mysql.sh | 无                                                   |
-| dump备份postgresql所有数据库 | `wget https://noodb.com/sharkshell/backup/backup_pg.sh`    | 备份postgresql所有数据库到指定目录；也可只指定数据库                           | bash   backup_pg.sh    | */5 * * * * /opt/shark-shell/backup/backup_pg.sh    |
-| 导入备份postgresql数据库     | `wget https://noodb.com/sharkshell/backup/import_pg.sh`    | 导入备份的postgresql数据库                                        | bash   import_pg.sh    | 无                                                   |
-| 监控frps服务              | `wget https://noodb.com/sharkshell/chk_frps/check_frps.sh` | 监控frps某些服务是否在线，不在先就email通知                                | bash   check_frps.sh   | */5 * * * * /opt/shark-shell/chk_frps/check_frps.sh |
+| 脚本                 | 下载                                                         | 功能描述                                                      | crontab                                             |
+|--------------------|------------------------------------------------------------|-----------------------------------------------------------|-----------------------------------------------------|
+| Java进程             | `wget https://noodb.com/sharkshell/guard/guard_java.sh`    | 根据端口，监控进程；可自定配置启动命令；可以定制修改。                               | 0 2 * * * /opt/shark-shell/guard/guard_java.sh      |
+| Kafka进程            | `wget https://noodb.com/sharkshell/guard/guard_kafka.sh`   | 监控Kafka进程；异常先启动zookeeper,然后是kafka。                        | */5 * * * * /opt/shark-shell/guard/guard_kafka.sh   |
+| Nacos进程            | `wget https://noodb.com/sharkshell/guard/guard_nacos.sh`   | 先判断端口，然后在通过登录来判断Nacos 是否存活。                               | */5 * * * * /opt/shark-shell/guard/guard_nacos.sh   |
+| 备份目录               | `wget https://noodb.com/sharkshell/backup/backup_dir.sh`   | 备份目录到指定目录,保留最近2次文件；可以备份数据库目录 /var/lib/mysql；或者应用/opt/apps | */5 * * * * /opt/shark-shell/backup/backup_dir.sh   |
+| MySQL全库Dump备份      | `wget https://noodb.com/sharkshell/backup/backup_mysql.sh` | 备份MySQL所有数据库到指定目录；也可只指定数据库                                | */5 * * * * /opt/shark-shell/backup/backup_dir.sh   |
+| MySQL备份导入          | `wget https://noodb.com/sharkshell/backup/import_mysql.sh` | 导入通过backup_mysql.sh备份的数据库	                                | 无                                                   |
+| PostgreSQL全库Dump备份 | `wget https://noodb.com/sharkshell/backup/backup_pg.sh`    | 备份postgresql所有数据库到指定目录；也可只指定数据库                           | */5 * * * * /opt/shark-shell/backup/backup_pg.sh    |
+| PostgreSQL备份导入     | `wget https://noodb.com/sharkshell/backup/import_pg.sh`    | 导入通过backup_pg.sh备份的数据库	                                   | 无                                                   |
+| 监控frps服务           | `wget https://noodb.com/sharkshell/chk_frps/check_frps.sh` | 监控frps某些服务是否在线，不在先就email通知                                | */5 * * * * /opt/shark-shell/chk_frps/check_frps.sh |
 
 ## 规范编码
 
