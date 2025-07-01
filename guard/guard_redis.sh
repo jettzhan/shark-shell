@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # 配置端口和对应的启动命令
-ports=("3306")
+ports=("6379")
 commands=(
-    "sudo systemctl start mysql"
+    "sudo systemctl start redis"
     )
 
 # 检查端口是否在监听状态
