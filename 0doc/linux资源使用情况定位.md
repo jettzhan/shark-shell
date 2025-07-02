@@ -1,0 +1,73 @@
+## top
+
+```
+%Cpu(s): 12.9 us,  3.1 sy,  0.0 ni,  8.2 id, 73.4 wa,  0.0 hi,  2.4 si,  0.0 st
+```
+
+| 指标 | 全称              | 含义                                                                 | 正常范围               | 异常可能原因                     |
+|------|-------------------|----------------------------------------------------------------------|------------------------|----------------------------------|
+| us   | User              | 用户空间程序占用 CPU 时间（如应用程序、服务）                        | <70% (视负载而定)      | 计算密集型任务过多               |
+| sy   | System            | 内核空间占用 CPU 时间（系统调用、中断处理等）                        | <30%                  | 内核频繁调度或驱动问题           |
+| ni   | Nice              | 低优先级（`nice` 调整过的进程）占用时间                              | 通常接近 0             | 低优先级进程突发占用             |
+| id   | Idle              | CPU 空闲时间                                                        | 越高说明负载越轻       | 长期 100% 可能服务未启动         |
+| wa   | I/O Wait          | CPU 等待磁盘/网络 I/O 完成的时间                                     | <10% (SSD)<br><30% (HDD)| 磁盘瓶颈、网络存储延迟           |
+| hi   | Hardware IRQ      | 硬件中断占用时间（如网卡、磁盘控制器中断）                           | 通常接近 0             | 硬件设备异常或高负载             |
+| si   | Software IRQ      | 软件中断占用时间（如线程调度、网络包处理）                           | <5%                   | 网络洪水攻击或内核线程繁忙       |
+| st   | Steal             | 虚拟机被宿主机“偷走”的时间（仅虚拟化环境）                           | <10%                  | 宿主机超卖资源                   |
+
+## iotop
+
+```
+sudo iotop -o 
+```
+
+```txt
+Total DISK READ :      33.97 K/s | Total DISK WRITE :      74.72 K/s
+Actual DISK READ:      40.76 K/s | Actual DISK WRITE:     179.17 K/s
+   TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN     IO>    COMMAND                                                                                                                                                                                                       
+ 90076 be/4 postgres   33.97 K/s    6.79 K/s  0.00 %  2.26 % postgres: yapai thingsboard 127.0.0.1(50226) idle
+ 90081 be/4 postgres    0.00 B/s   40.76 K/s  0.00 %  0.04 % postgres: yapai thingsboard 127.0.0.1(50230) idle
+ 90061 be/4 postgres    0.00 B/s    6.79 K/s  0.00 %  0.03 % postgres: yapai thingsboard 127.0.0.1(50216) idle
+  2706 be/4 root        0.00 B/s    3.40 K/s  0.00 %  0.01 % java -Xmx1G -Xms1G -server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -X~/bin/../libs/kafka-metadata-2.8.0.jar:/usr/local/kafka/bin/../libs/kafka-raft-2.8.0.ja [kafka-scheduler]
+  2632 be/4 mysql       0.00 B/s    3.40 K/s  0.00 %  0.01 % mysqld [ib_log_checkpt]
+  1415 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % rsyslogd -n [in:imjournal]
+  1416 be/4 root        0.00 B/s    3.40 K/s  0.00 %  0.00 % rsyslogd -n [rs:main Q:Reg]
+ 19801 be/4 yapai       0.00 B/s    3.40 K/s  0.00 %  0.00 % python3 -c from thingsboard_gateway.tb_gateway import daemon; daemon()
+
+```
+
+| 快捷键/参数 | 作用描述                                                                 |
+|-------------|--------------------------------------------------------------------------|
+| `-o`        | 仅显示实际产生I/O的进程                                                  |
+| `-P`        | 只显示进程（不显示线程）                                                 |
+| `-a`        | 显示累计I/O量                                                            |
+| `-b`        | 非交互式模式（批量输出）                                                 |
+| `-k`        | 使用KB/s单位（默认）                                                     |
+| `-m`        | 使用MB/s单位                                                             |
+| `-t`        | 添加时间戳                                                               |
+| `-d SEC`    | 设置刷新间隔（秒）                                                       |
+| `-n NUM`    | 指定刷新次数后退出                                                       |
+| `-u USER`   | 只显示指定用户的进程                                                     |
+| `--version` | 显示版本信息                                                             |
+
+| 交互命令    | 功能说明                                                                 |
+|-------------|--------------------------------------------------------------------------|
+| 左右方向键  | 切换排序字段（IO>、SWAPIN、DISK READ等）                                 |
+| `r`         | 反转排序顺序                                                             |
+| `o`         | 切换仅显示活跃I/O进程模式                                                |
+| `p`         | 切换进程/线程显示模式                                                    |
+| `a`         | 切换累计I/O显示模式                                                      |
+| `q`         | 退出程序                                                                 |
+| `i`         | 改变优先级（需root）                                                     |
+| `任何其他键`| 强制刷新显示                                                             |
+
+| 输出列       | 说明                                                                     |
+|--------------|--------------------------------------------------------------------------|
+| TID/PID      | 线程ID/进程ID                                                           |
+| PRIO         | 进程优先级                                                              |
+| USER         | 进程所有者                                                              |
+| DISK READ    | 每秒磁盘读取量                                                          |
+| DISK WRITE   | 每秒磁盘写入量                                                          |
+| SWAPIN       | 进程交换空间使用占比                                                    |
+| IO>          | 进程I/O占用百分比（最关键的监控指标）                                   |
+| COMMAND      | 进程名称/命令行                                                         |

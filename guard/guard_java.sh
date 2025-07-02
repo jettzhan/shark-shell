@@ -4,7 +4,7 @@
 ports=("3306")
 commands=(
     "sudo systemctl start mysql"
-    )
+)
 
 # 检查端口是否在监听状态
 check_port() {
