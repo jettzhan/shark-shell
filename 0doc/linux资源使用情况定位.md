@@ -25,14 +25,10 @@ sudo iotop -o
 Total DISK READ :      33.97 K/s | Total DISK WRITE :      74.72 K/s
 Actual DISK READ:      40.76 K/s | Actual DISK WRITE:     179.17 K/s
    TID  PRIO  USER     DISK READ  DISK WRITE  SWAPIN     IO>    COMMAND                                                                                                                                                                                                       
- 90076 be/4 postgres   33.97 K/s    6.79 K/s  0.00 %  2.26 % postgres: yapai thingsboard 127.0.0.1(50226) idle
- 90081 be/4 postgres    0.00 B/s   40.76 K/s  0.00 %  0.04 % postgres: yapai thingsboard 127.0.0.1(50230) idle
- 90061 be/4 postgres    0.00 B/s    6.79 K/s  0.00 %  0.03 % postgres: yapai thingsboard 127.0.0.1(50216) idle
   2706 be/4 root        0.00 B/s    3.40 K/s  0.00 %  0.01 % java -Xmx1G -Xms1G -server -XX:+UseG1GC -XX:MaxGCPauseMillis=20 -XX:InitiatingHeapOccupancyPercent=35 -X~/bin/../libs/kafka-metadata-2.8.0.jar:/usr/local/kafka/bin/../libs/kafka-raft-2.8.0.ja [kafka-scheduler]
   2632 be/4 mysql       0.00 B/s    3.40 K/s  0.00 %  0.01 % mysqld [ib_log_checkpt]
   1415 be/4 root        0.00 B/s    0.00 B/s  0.00 %  0.00 % rsyslogd -n [in:imjournal]
   1416 be/4 root        0.00 B/s    3.40 K/s  0.00 %  0.00 % rsyslogd -n [rs:main Q:Reg]
- 19801 be/4 yapai       0.00 B/s    3.40 K/s  0.00 %  0.00 % python3 -c from thingsboard_gateway.tb_gateway import daemon; daemon()
 
 ```
 
