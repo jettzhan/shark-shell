@@ -7,6 +7,8 @@ HOST="127.0.0.1"
 
 echo 'import mysql'
 
+gunzip ${BAKDIR}/*.gz
+
 for file in $(ls ${BAKDIR}/*.sql); do
   # 获取数据库名称
   DBNAME=$(basename $file | cut -d'2' -f1 | rev | cut -c2- | rev)
