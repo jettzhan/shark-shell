@@ -62,7 +62,7 @@ sudo git clone https://gitee.com/JettZhan/shark-shell /opt/shark-shell
 | postgres-single    | [postgres-single.zip](https://noodb.com/sharkshell/dockers/postgres-single.zip)   | `unzip postgres-single.zip && docker-compose up -d` |
 | redis              | [redis.zip](https://noodb.com/sharkshell/dockers/redis.zip)                       | `unzip redis.zip && docker-compose up -d`           |
 | taos               | [taos.zip](https://noodb.com/sharkshell/dockers/taos.zip)                         | `unzip taos.zip && docker-compose up -d`            |
-| thingsboard        | [thingsboard.zip](https://noodb.com/sharkshell/dockers/thingsboard.zip)           | `unzip thingsboard.zip && docker-compose up -d`     |
+| thingsboard        | [thingsboard.zip](https://noodb.com/sharkshell/dockers/thingsboard.zip)           | `unzip thingsboard.zip && bash start.sh`     |
 
 ## 文章集合
 
